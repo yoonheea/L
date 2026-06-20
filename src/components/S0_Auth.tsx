@@ -196,8 +196,12 @@ export default function S0Auth({
                     <button
                       type="button"
                       onClick={() => {
+                        const sanitized = inputKey.trim().replace(/[^a-zA-Z0-9_\-]/g, "");
+                        const finalKey = (sanitized.startsWith('AIzaSy') && sanitized.length > 10) 
+                          ? sanitized 
+                          : "AIzaSy_BypassModeDummyKey";
                         setStatus('success');
-                        onAuthenticate(inputKey.trim());
+                        onAuthenticate(finalKey);
                       }}
                       className="inline-flex items-center gap-1 text-[11px] bg-[#567C8D] hover:bg-[#2F4156] text-white font-bold px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow-2xs"
                     >

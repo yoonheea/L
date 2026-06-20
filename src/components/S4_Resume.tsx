@@ -269,13 +269,16 @@ export default function S4Resume({ state, onPrev, onReset }: S4ResumeProps) {
 
                   </div>
 
-                  {/* Keywords badging */}
-                  <div className="flex flex-wrap gap-1.5 pt-1.5 border-t border-white/10">
-                    {item.keywords.map((kw, idx) => (
-                      <span key={idx} className="text-xs font-semibold text-[#C8D9E6] bg-white/10 px-2.5 py-1 rounded-lg border border-white/15 font-sans">
-                        {kw}
-                      </span>
-                    ))}
+                  {/* Keywords simple text */}
+                  <div className="pt-2 text-xs font-semibold text-[#C8D9E6] border-t border-white/10 flex flex-wrap gap-x-3 gap-y-1">
+                    {item.keywords.map((kw, idx) => {
+                      const displayKw = kw.startsWith('#') ? kw : `#${kw}`;
+                      return (
+                        <span key={idx} className="font-sans">
+                          {displayKw}
+                        </span>
+                      );
+                    })}
                   </div>
 
                 </div>
