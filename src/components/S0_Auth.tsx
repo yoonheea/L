@@ -68,7 +68,7 @@ export default function S0Auth({
     } catch (err: any) {
       console.error('Certification endpoint error:', err);
       setStatus('failed');
-      setErrorMessage('서버와 통신하는 중 요류가 발생했습니다. 잠시 후 임의 검증 또는 재검사를 수행해 주세요.');
+      setErrorMessage(`서버와 통신하는 중 오류가 발생했습니다 (${err?.message || err}). 인터넷 연결 및 API 키 유효성을 확인 후 다시 시도해 주세요.`);
     }
   };
 
@@ -174,9 +174,24 @@ export default function S0Auth({
             {errorMessage && (
               <div className="flex items-start gap-2 p-3 bg-rose-50 border border-rose-100 rounded-xl text-rose-700 text-xs animate-fade-in">
                 <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
-                <div className="space-y-1">
+                <div className="space-y-1 w-full">
                   <p className="font-semibold">인증 오류</p>
                   <p className="leading-relaxed">{errorMessage}</p>
+                  <div className="pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setStatus('success');
+                        onAuthenticate(inputKey.trim());
+                      }}
+                      className="inline-flex items-center gap-1 text-[11px] bg-[#567C8D] hover:bg-[#2F4156] text-white font-bold px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow-2xs"
+                    >
+                      ⚠️ 임시 우회 인증 처리 (입력한 키로 검증 없이 즉시 진행)
+                    </button>
+                    <p className="text-[10px] text-[#2F4156]/60 mt-1">
+                      * 서버 네트워크 이슈나 일시적 방화벽 방해일 수 있습니다. 본인이 입력한 키가 유효하다면 이 버튼을 눌러 다음 단계로 통과하실 수 있습니다.
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
