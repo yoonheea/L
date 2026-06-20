@@ -38,8 +38,23 @@ export default function S0Auth({
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputKey.trim()) {
+    const sanitizedKey = inputKey.trim();
+
+    if (!sanitizedKey) {
       setErrorMessage('API Key를 입력해 주세요.');
+      setStatus('failed');
+      return;
+    }
+
+    // Alphanumeric + hyphens/underscores only.
+    if (!/^[a-zA-Z0-9_\-]+$/.test(sanitizedKey)) {
+      setErrorMessage('입력하신 API Key에 허용되지 않는 문자(한글, 이모지 ⚠️, 공백, 특수문자 등)가 포함되어 있습니다. 혹시 에러 메시지나 설명문을 영문 API Key 자리에 잘못 붙여넣으신 것은 아닌지 다시 확인해 주세요.');
+      setStatus('failed');
+      return;
+    }
+
+    if (!sanitizedKey.startsWith('AIzaSy')) {
+      setErrorMessage('구강/구글 Gemini API Key는 일반적으로 "AIzaSy"로 시작합니다. 현재 입력하신 키가 유효한 구글 클라우드 발급 API Key인지 확인해 주시기 바랍니다.');
       setStatus('failed');
       return;
     }
@@ -53,7 +68,7 @@ export default function S0Auth({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ apiKey: inputKey.trim() }),
+        body: JSON.stringify({ apiKey: sanitizedKey }),
       });
 
       const data = await response.json();

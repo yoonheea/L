@@ -40,6 +40,14 @@ app.post("/api/verify-key", async (req, res) => {
       return res.status(400).json({ success: false, error: "API Key를 입력하지 않았습니다." });
     }
 
+    // Add robust backend sanity safeguard to prevent Header/ByteString serialization crash
+    if (!/^[a-zA-Z0-9_\-]+$/.test(apiKey)) {
+      return res.json({ 
+        success: false, 
+        error: "입력하신 API Key에 허용되지 않는 특수 문자(한글, 공백 등)가 포함되어 있습니다. 올바른 형식인지 다시 한번 확인해 주세요." 
+      });
+    }
+
     const testAi = new GoogleGenAI({
       apiKey: apiKey,
       httpOptions: {
