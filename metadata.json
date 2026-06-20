@@ -1,0 +1,6 @@
+{
+  "name": "직업심리검사 L형 해석을 통한 커리어코치",
+  "description": "직업선호도검사(L형) 결과를 해석하고, 맞춤형 질문과 결과 해설, 희망직무 매칭 및 자소서·이력서 작성을 지원하는 5단계 폼 웹앱입니다.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

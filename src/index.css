@@ -1,0 +1,32 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Custom Palette matching request */
+  --color-navy-dark: #2F4156;
+  --color-teal-brand: #567C8D;
+  --color-sky-light: #C8D9E6;
+  --color-beige-bg: #F5EFEB;
+  --color-white-panel: #FFFFFF;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-beige-bg);
+  color: #2F4156; /* Deep navy text as default */
+}
+
+/* Subtle page entrance animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
